@@ -30,9 +30,9 @@ from keras.utils import multi_gpu_model
 
 # Allow relative imports when being executed as script.
 
-# if __name__ == "__main__" and __package__ is None:
-#     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-#     __package__ = "keras_retinanet.bin"
+if __name__ == "__main__" and __package__ is None:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    __package__ = "keras_retinanet.bin"
 
 # Change these to absolute imports if you copy this script outside the keras_retinanet package.
 # from .. import losses
@@ -63,9 +63,9 @@ def makedirs(path):
 def get_session():
     """ Construct a modified tf session.
     """
-    config = tf.ConfigProto()
+    config = tf.compat.v1.ConfigProto()
     config.gpu_options.allow_growth = True
-    return tf.Session(config=config)
+    return tf.compat.v1.Session(config=config)
 
 
 def model_with_weights(model, weights, skip_mismatch):

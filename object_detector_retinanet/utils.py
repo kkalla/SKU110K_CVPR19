@@ -40,7 +40,7 @@ def create_folder(path):
 
 def root_dir():
     if platform.system() == 'Linux':
-        return os.path.join(os.getenv('HOME'), 'Documents', 'SKU110K')
+        return os.path.join(os.getenv('HOME'), 'Documents', 'datasets', 'SKU110K_fixed')
     elif platform.system() == 'Windows':
         return os.path.abspath('C:/Users/{}/Documents/SKU110K/'.format(os.getenv('username')))
 
