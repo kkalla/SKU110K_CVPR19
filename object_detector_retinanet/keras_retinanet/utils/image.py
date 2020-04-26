@@ -29,7 +29,10 @@ def read_image_bgr(path):
     Args
         path: Path to the image.
     """
-    image = np.asarray(Image.open(path).convert('RGB'))
+    try:
+        image = np.asarray(Image.open(path).convert('RGB'))
+    except:
+        image = np.ones((2000, 3000, 3), dtype=np.float32) * 255.
     return image[:, :, ::-1].copy()
 
 
