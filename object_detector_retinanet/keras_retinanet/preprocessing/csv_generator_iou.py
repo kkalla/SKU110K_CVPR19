@@ -65,8 +65,7 @@ def _read_images(base_dir):
 
     result = {}
     dirs = [os.path.join(base_dir, o) for o in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, o))]
-    if len(dirs) == 0:
-        dirs = ['']
+    dirs = ['']
     for project in dirs:
         project_imgs = os.listdir(os.path.join(base_dir, project))
         i = 0
@@ -250,7 +249,7 @@ class CSVIouGenerator(GeneratorIou):
     def image_path(self, image_index):
         """ Returns the image path for image_index.
         """
-        return os.path.join(self.base_dir, self.image_names[image_index])
+        return self.image_names[image_index]
 
     def image_aspect_ratio(self, image_index):
         """ Compute the aspect ratio for an image with image_index.
