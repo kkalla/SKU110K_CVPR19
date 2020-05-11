@@ -400,7 +400,7 @@ def main(args=None):
         training_model = model
         prediction_model = retinanet_bbox(model=model)
     else:
-        weights = os.path.join(os.path.join(root_dir(), args.weights))
+        weights = args.weights
         # default to imagenet if nothing else is specified
         if weights is None and args.imagenet_weights:
             weights = backbone.download_imagenet()
