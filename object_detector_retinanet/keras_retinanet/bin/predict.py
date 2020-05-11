@@ -133,6 +133,9 @@ def main(args=None):
     # make save path if it doesn't exist
     if args.save_path is not None and not os.path.exists(args.save_path):
         os.makedirs(args.save_path)
+        save_path = args.save_path
+    elif args.save_path is None:
+        save_path=os.path.join(root_dir(), 'res_images_iou')
 
     # create the generator
     generator = create_generator(args)
@@ -146,7 +149,7 @@ def main(args=None):
         generator,
         model,
         score_threshold=args.score_threshold,
-        save_path=os.path.join(root_dir(), 'res_images_iou'),
+        save_path=save_path,
         hard_score_rate=hard_score_rate
     )
 
