@@ -2,10 +2,10 @@
 # --snapshot-path=./snapshots/ARRAY_DETECT_MODEL \
 # --tensorboard-dir=./logs/ARRAY_DETECT_MODEL \
 # --weights=./snapshots/resnet50_csv_11.h5 \
-# --steps=10 \
-# --gpu=2 \
+# --steps=100 \
+# --gpu=0 \
 # --batch-size=1 \
-# --epochs=2 \
+# --epochs=10 \
 # --image-min-side=1500 \
 # --image-max-side=3000 \
 # --random-transform \
@@ -17,13 +17,13 @@
 ########################################################################
 
 python -u object_detector_retinanet/keras_retinanet/bin/train_iou.py \
---weights ./snapshots/ARRAY_DETECT_MODEL/Sun_May_10_06_34_58_2020/resnet50_csv_02.h5 \
+--weights ./snapshots/ARRAY_DETECT_MODEL/Mon_May_11_01_46_22_2020/resnet50_csv_10.h5 \
 --snapshot-path=./snapshots/ARRAY_DETECT_MODEL \
 --tensorboard-dir=./logs/ARRAY_DETECT_MODEL \
 --steps=10 \
---gpu=2 \
+--gpu=1 \
 --batch-size=1 \
---epochs=2 \
+--epochs=10 \
 --image-min-side=1500 \
 --image-max-side=3000 \
 --random-transform \
