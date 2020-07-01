@@ -27,6 +27,9 @@ import keras
 import numpy
 import tensorflow as tf
 
+if __name__ == "__main__" and __package__ is None:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    __package__ = "keras_retinanet.bin"
 
 from object_detector_retinanet.keras_retinanet import models
 from object_detector_retinanet.keras_retinanet.preprocessing.csv_generator import CSVGenerator
@@ -81,6 +84,9 @@ def parse_args(args):
                             default=args_annotations)
     csv_parser.add_argument('--classes', help='Path to a CSV file containing class label mapping.',
                             default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'class_mappings.csv'))
+    csv_parser.add_argument('--base_dir', 
+                            help='Path to base dir for CSV file.',
+                            default=image_path())
     parser.add_argument('--hard_score_rate', help='', default="0.5")
 
     parser.add_argument('model', help='Path to RetinaNet model.')
@@ -136,6 +142,8 @@ def main(args=None):
     # make save path if it doesn't exist
     if args.save_path is not None and not os.path.exists(args.save_path):
         os.makedirs(args.save_path)
+    elif args.save_path is None:
+        args.save_path = os.path.join(root_dir(), 'res_images_iou')
 
     # create the generator
     generator = create_generator(args)
@@ -149,7 +157,7 @@ def main(args=None):
         generator,
         model,
         score_threshold=args.score_threshold,
-        save_path=os.path.join(root_dir(), 'res_images_iou'),
+        save_path=args.save_path,
         hard_score_rate=hard_score_rate
     )
 

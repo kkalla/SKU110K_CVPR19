@@ -1,19 +1,54 @@
-export DATA_PATH=/home/jovyan/work/1_user/dkswns333@agilesoda.ai/datasets
+
+# train w/ sku110k
 
 # python -u object_detector_retinanet/keras_retinanet/bin/train.py \
-# --snapshot-path=./snapshots \
-# --tensorboard-dir=./logs \
-# --weights=./snapshots/Fri_Apr_24_08_48_37_2020/resnet50_csv_26.h5 \
-# --steps=2000 \
-# --gpu=2 \
-# --batch-size=2 \
-# csv
+# --snapshot-path=../workspace/oddp/snapshots/BASE \
+# --tensorboard-dir=../workspace/oddp/logs/BASE \
+# --weights=../workspace/oddp/snapshots/BASE/Wed_May_20_03_00_57_2020/resnet50_csv_04.h5 \
+# --steps=200 \
+# --gpu=0 \
+# --image-min-side=1500 \
+# --image-max-side=3000 \
+# --random-transform \
+# csv \
+# --base_dir=../../datasets/SKU110K_fixed/images \
+# --annotations=../../datasets/SKU110K_fixed/annotations/annotations_train.csv \
+# --val-annotations=../../datasets/SKU110K_fixed/annotations/annotations_val.csv \
+
+########################################################################
+# train ARRAY_DETECT_MODEL
+
+# python -u object_detector_retinanet/keras_retinanet/bin/train.py \
+# --snapshot-path=../workspace/oddp/snapshots/ARRAY_DETECT_MODEL \
+# --tensorboard-dir=../workspace/oddp/logs/ARRAY_DETECT_MODEL \
+# --weights=../workspace/oddp/snapshots/ARRAY_DETECT_MODEL/Fri_May_22_06_48_54_2020/resnet50_csv_03.h5 \
+# --steps=100 \
+# --gpu=1 \
+# --batch-size=1 \
+# --epochs=20 \
+# --image-min-side=1500 \
+# --image-max-side=3000 \
+# --random-transform \
+# csv \
+# --base_dir=../data/array_bbox-oddp/images \
+# --annotations=../data/array_bbox-oddp/annotations/annotations_train.csv \
+# --val-annotations=../data/array_bbox-oddp/annotations/annotations_valid.csv \
+
+########################################################################
 
 python -u object_detector_retinanet/keras_retinanet/bin/train_iou.py \
---weights ./snapshots/Tue_Apr_28_06_43_21_2020/resnet50_csv_10.h5 \
---snapshot-path=./snapshots \
---tensorboard-dir=./logs \
---steps=2000 \
---gpu=4 \
---batch-size=2 \
-csv
+--weights ../workspace/oddp/snapshots/ARRAY_DETECT_MODEL/200525/resnet50_csv_20.h5 \
+--snapshot-path=../workspace/oddp/snapshots/ARRAY_DETECT_MODEL \
+--tensorboard-dir=../workspace/oddp/logs/ARRAY_DETECT_MODEL \
+--steps=100 \
+--gpu=1 \
+--batch-size=1 \
+--epochs=20 \
+--image-min-side=1500 \
+--image-max-side=3000 \
+--random-transform \
+csv \
+--base_dir=../data/array_bbox-oddp/images \
+--annotations=../data/array_bbox-oddp/annotations/annotations_train.csv \
+--val-annotations=../data/array_bbox-oddp/annotations/annotations_valid.csv \
+

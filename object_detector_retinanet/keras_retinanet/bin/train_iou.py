@@ -31,7 +31,7 @@ from keras.utils import multi_gpu_model
 # Allow relative imports when being executed as script.
 
 if __name__ == "__main__" and __package__ is None:
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', ".."))
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
     __package__ = "keras_retinanet.bin"
 
 # Change these to absolute imports if you copy this script outside the keras_retinanet package.
@@ -381,7 +381,7 @@ def main(args=None):
     keras.backend.tensorflow_backend.set_session(get_session())
 
     # Weights and logs saves in a new locations
-    stmp = time.strftime("%c").replace(" ", "_")
+    stmp = time.strftime("%a_%y%m%d_%H").replace(" ", "_")
     args.snapshot_path = os.path.join(args.snapshot_path, stmp)
     args.tensorboard_dir = os.path.join(args.tensorboard_dir, stmp)
     print("Weights will be saved in  {}".format(args.snapshot_path))
