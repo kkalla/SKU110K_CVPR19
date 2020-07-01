@@ -30,9 +30,9 @@ from keras.utils import multi_gpu_model
 
 # Allow relative imports when being executed as script.
 
-# if __name__ == "__main__" and __package__ is None:
-#     sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
-#     __package__ = "keras_retinanet.bin"
+if __name__ == "__main__" and __package__ is None:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', ".."))
+    __package__ = "keras_retinanet.bin"
 
 # Change these to absolute imports if you copy this script outside the keras_retinanet package.
 # from .. import losses
@@ -400,7 +400,7 @@ def main(args=None):
         training_model = model
         prediction_model = retinanet_bbox(model=model)
     else:
-        weights = os.path.join(os.path.join(root_dir(), args.weights))
+        weights = args.weights
         # default to imagenet if nothing else is specified
         if weights is None and args.imagenet_weights:
             weights = backbone.download_imagenet()

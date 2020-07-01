@@ -65,6 +65,8 @@ class DuplicateMerger(object):
         heat_map = cv2.convertScaleAbs(heat_map)
         h2, heat_map = cv2.threshold(heat_map, 4, 255, cv2.THRESH_TOZERO)
         contours = cv2.findContours(numpy.ndarray.copy(heat_map), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        # opencv 4.0
+#         contours = contours[0] 
         
         candidates = self.find_new_candidates(contours, heat_map, data, original_detection_centers, image)
         candidates = self.map_original_boxes_to_new_boxes(candidates, original_detection_centers)
@@ -75,13 +77,13 @@ class DuplicateMerger(object):
         filtered_data = pandas.DataFrame(columns=data.columns)
         for i, candidate in candidates.items():
             label = candidate['original_detection_ids']
-            original_detections = data.ix[label]
+            original_detections = data.iloc[label]
             original_detections[
                 'avg_score'] = 0.5 * original_detections.confidence + 0.5 * original_detections.hard_score
             best_detection_id = original_detections.avg_score.argmax()
             # best_detection_id = original_detections.confidence.argmax()
             # best_detection_id = original_detections.hard_score.argmax()
-            best_detection = original_detections.ix[best_detection_id].copy()
+            best_detection = original_detections.iloc[best_detection_id].copy()
 
             # The following code creates the median bboxes
             # original_detections = original_detections[original_detections.confidence > 0.5]
@@ -380,7 +382,7 @@ def merge_detections(image_name, results):
     duplicate_merger.multiprocess = False
     duplicate_merger.compression_factor = 1
 #    project = result_df['project'].iloc[0]
-    image_name = result_df['image_name'].iloc[0]
+#     image_name = result_df['image_name'].iloc[0]
     if pixel_data is None:
         pixel_data = read_image_bgr(os.path.join(root_dir(),  image_name))
 

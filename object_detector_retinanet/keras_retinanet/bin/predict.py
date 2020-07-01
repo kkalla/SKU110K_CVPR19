@@ -19,6 +19,9 @@ limitations under the License.
 import argparse
 import os
 import sys
+if __name__ == "__main__" and __package__ is None:
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+    __package__ = "keras_retinanet.bin"
 
 import keras
 import numpy
@@ -139,7 +142,7 @@ def main(args=None):
 
     # load the model
     print('Loading model, this may take a second...')
-    model = models.load_model(os.path.join(root_dir(), args.model), backbone_name=args.backbone, convert=args.convert_model, nms=False)
+    model = models.load_model(args.model, backbone_name=args.backbone, convert=args.convert_model, nms=False)
 
     # start prediction
     predict(
